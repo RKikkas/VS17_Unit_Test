@@ -24,11 +24,13 @@ class ReceiptTest extends TestCase {
         unset($this->Receipt);
     }
 
+    // Testib Receipt Total meetodit ilma couponita
     public function testTotal(){
         // array väärtustega
         $input = [0, 2, 5, 8];
+        $coupon = null;
         // kutsume Receipt meetodi total koos eelnevalt defineeritud väärtustega
-        $output = $this->Receipt->total($input);
+        $output = $this->Receipt->total($input, $coupon);
         // PHPUniti testi meetod, mis kontrollib kas oodatav väärtus on sama mis reaalne. assertEquals on samaväärne
         // operaator == ja assertSame on ===
         // võtab parameetrid (expected, real value, message in case of error)
@@ -39,6 +41,24 @@ class ReceiptTest extends TestCase {
         );
     }
 
+    // Testib Receipt Total meetodit koos couponiga
+    public function testTotalAndCoupon(){
+        // array väärtustega
+        $input = [0, 2, 5, 8];
+        $coupon = 0.2;
+        // kutsume Receipt meetodi total koos eelnevalt defineeritud väärtustega
+        $output = $this->Receipt->total($input, $coupon);
+        // PHPUniti testi meetod, mis kontrollib kas oodatav väärtus on sama mis reaalne. assertEquals on samaväärne
+        // operaator == ja assertSame on ===
+        // võtab parameetrid (expected, real value, message in case of error)
+        $this->assertEquals(
+            12,
+            $output,
+            'When running should equal 12'
+        );
+    }
+
+    // Testib Receipt tax meetodit
     public function testTax() {
         // Algsed muutujad
         $inputAmount = 10;
@@ -51,4 +71,5 @@ class ReceiptTest extends TestCase {
             'Tax calculation should be equal to 1'
         );
     }
+
 }

@@ -35,6 +35,20 @@ class ReceiptTest extends TestCase {
         $this->assertEquals(
             15,
             $output,
-            'When running should equal 15');
+            'When running should equal 15'
+        );
+    }
+
+    public function testTax() {
+        // Algsed muutujad
+        $inputAmount = 10;
+        $taxInput = 0.1;
+        $output = $this->Receipt->tax($inputAmount, $taxInput);
+
+        $this->assertEquals(
+            1,
+            $output,
+            'Tax calculation should be equal to 1'
+        );
     }
 }

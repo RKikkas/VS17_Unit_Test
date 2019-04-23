@@ -48,7 +48,9 @@ class ReceiptTest extends TestCase {
     public function provideTotal() {
         // Array esimene element läheb testTotal $items parameetriks ja teine element on $expected
         return [
-            [[1, 2, 5, 8], 16],
+            // Episood 9 lisatud arrayle key, mille järgi saab testi filtreerida ja pärast kontrollida, milliste
+            // väärtustega test failis
+            'ints total 16' => [[1, 2, 5, 8], 16],
             [[-1, 2, 5, 8], 14],
             [[1, 2, 8], 11],
         ];

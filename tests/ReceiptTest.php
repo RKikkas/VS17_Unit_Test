@@ -25,20 +25,33 @@ class ReceiptTest extends TestCase {
     }
 
     // Testib Receipt Total meetodit ilma couponita
-    public function testTotal(){
+    // dot block, mis määrab, et antud test kasutab provideTotal Data Providerit
+    /**
+     * @dataProvider provideTotal
+     */
+    public function testTotal($items, $expected){
         // array väärtustega
-        $input = [0, 2, 5, 8];
         $coupon = null;
         // kutsume Receipt meetodi total koos eelnevalt defineeritud väärtustega
-        $output = $this->Receipt->total($input, $coupon);
+        $output = $this->Receipt->total($items, $coupon);
         // PHPUniti testi meetod, mis kontrollib kas oodatav väärtus on sama mis reaalne. assertEquals on samaväärne
         // operaator == ja assertSame on ===
         // võtab parameetrid (expected, real value, message in case of error)
         $this->assertEquals(
-            15,
+            $expected,
             $output,
-            'When running should equal 15'
+            "When running should equal {$expected}"
         );
+    }
+
+    // Data provider, mis annab väärtused Total meetodi testimiseks
+    public function provideTotal() {
+        // Array esimene element läheb testTotal $items parameetriks ja teine element on $expected
+        return [
+            [[1, 2, 5, 8], 16],
+            [[-1, 2, 5, 8], 14],
+            [[1, 2, 8], 11],
+        ];
     }
 
     // Testib Receipt Total meetodit koos couponiga

@@ -74,15 +74,24 @@ class ReceiptTest extends TestCase {
 
     // Testib Receipt postTaxTotal meetodi
     public function testPostTaxTotal() {
+        $items = [1, 2, 5, 8];
+        $tax = 0.2;
+        $coupon = null;
         // Loome uue Mock Receipt objekti
         $Receipt = $this->getMockBuilder('TDD\Receipt')
             ->setMethods(['total', 'tax'])
             ->getMock();
-        // Stub mis ütleb, et total returnib 10
-        $Receipt->method('total')
+        // Episood 7 tehtud stubist mock, millel on ootused (expectation), et meetodit kutsutakse välja üks kord
+        // samuti lisatud oodatud argumendid
+        $Receipt->expects($this->once())
+            ->method('total')
+            ->with($items, $coupon)
             ->will($this->returnValue(10.00));
-        // Stub mis ütleb, et tax returnib 1
-        $Receipt->method('tax')
+        // Episood 7 tehtud stubist mock, millel on ootused (expectation), et meetodit kutsutakse välja üks kord
+        // samuti lisatud oodatud argumendid
+        $Receipt->expects($this->once())
+            ->method('tax')
+            ->with(10.00, $tax)
             ->will($this->returnValue(1));
         // Kutsub Receipt objektist postTaxTotal meetodi oma muutujatega, kuid $result erineb
         // kuna varasemalt on stubid määranud, et total ja tax returnivad kindlad valued

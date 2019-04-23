@@ -73,6 +73,17 @@ class ReceiptTest extends TestCase {
         );
     }
 
+    // Testib Receipt total meetodi exceptionit
+    public function testTotalException(){
+        // array väärtustega
+        $input = [0, 2, 5, 8];
+        $coupon = 1.2;
+        // Ootus, et meetod annab exceptioni 'BadMethodCallException'
+        $this->expectException('BadMethodCallException');
+        // Kutsutakse meetod total
+        $this->Receipt->total($input, $coupon);
+    }
+
     // Testib Receipt tax meetodit
     public function testTax() {
         // Algsed muutujad
